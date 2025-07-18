@@ -63,6 +63,7 @@ RUN if [ "${TE_REVISION}" != SKIP ]; then \
     NVTE_CUDA_ARCHS="100" NVTE_UB_WITH_MPI=1 NVTE_FRAMEWORK=pytorch NVTE_WITH_USERBUFFERS=1 MPI_HOME=/usr/local/mpi pip install --force-reinstall --no-deps . \
     ; fi
 
+
 ## fix opencc
 RUN apt-get update && apt-get install -y --no-install-recommends libopencc-dev
 
@@ -70,3 +71,8 @@ ADD . /workspace/ft-llm
 
 
 RUN pip install -r requirements.txt
+
+ENV CUDA_VERSION=12.9
+
+RUN pip uninstall -y bitsandbytes && \
+    pip install --no-cache-dir bitsandbytes
