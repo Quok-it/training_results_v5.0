@@ -289,7 +289,7 @@ def prepare_training_strategy(
     )
 
     tp_comm_overlap_cfg = None
-    if cfg.model.ub_tp_comm_overlap and "ub_tp_comm_overlap_cfg" in cfg.model::
+    if cfg.model.ub_tp_comm_overlap and "ub_tp_comm_overlap_cfg" in cfg.model:
         tp_comm_overlap_cfg = OmegaConf.to_container(cfg.model.ub_tp_comm_overlap_cfg)
         TPCommOverlapConfig = make_dataclass(
             "TPCommOverlapConfig",
