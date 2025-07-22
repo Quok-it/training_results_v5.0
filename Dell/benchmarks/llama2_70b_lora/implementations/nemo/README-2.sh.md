@@ -67,7 +67,7 @@ Name=gpu File=/dev/nvidia0,/dev/nvidia1,/dev/nvidia2,/dev/nvidia3,/dev/nvidia4,/
 EOF
 
 docker build -t mlperf-nvidia:llama2_70b_lora-pyt .
-docker run -it --rm --gpus all --network=host --ipc=host --volume /dataset:/data <docker/registry>/mlperf-nvidia:llama2_70b_lora-pyt
+docker run -it --rm --gpus all --network=host --ipc=host --volume /dataset:/data mlperf-nvidia:llama2_70b_lora-pyt
 
 
 # RUN THIS IN THE CONTAINER
@@ -80,8 +80,9 @@ export DATADIR="/dataset/gov_report"  # set your </path/to/dataset>
 export MODEL="/dataset/model"  # set your </path/to/dataset>
 mkdir -p /var/log/llama-70b-lora
 export LOGDIR="/var/log/llama-70b-lora"  # set the place where the output logs will be saved
-export CONT=mlperf-nvidia:llama2_70b_lora-pyt
+export CONT="dockerd://mlperf-nvidia:llama2_70b_lora-pyt"
 export SLURM_MPI_TYPE=pmi2
+source config_XE9680lx8H200-SXM-141GB_1x8x2xtp1pp1cp2.sh
 
 sbatch -N $DGXNNODES -t $WALLTIME run.sub
 
